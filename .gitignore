@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Editor
+.vscode
+
+# Data
+data/raw/
+data/processed/
+/cache/
+*.zip
+*.gpkg
+output/
+
+# Database files 
+data/db/
+*.wt
+mongod.lock
+dump/
+
+# Local environment
+.env
+docker-compose.override.yml
+compose.override.yml

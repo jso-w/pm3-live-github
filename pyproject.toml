@@ -1,0 +1,27 @@
+[project]
+name = "pm3-gruppe3"
+version = "0.1.0"
+description = "Availability of cafés and other amenities in Swiss municipalities (ZHAW PM3, Gruppe 3)"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.3",
+    "geopandas>=1.1",
+    "osmnx>=2.0",
+    "pymongo>=4.18.2",
+    "requests>=2.32",
+    "six>=1.17.0",
+]
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.10",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.17"]
+build-backend = "uv_build"
+
+# Package directory is src/pm3 (default would be src/pm3_gruppe3)
+[tool.uv.build-backend]
+module-name = "pm3"
