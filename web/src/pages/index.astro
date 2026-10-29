@@ -1,0 +1,81 @@
+---
+// CaféGap Schweiz – map page, ported from the Swiss City Quiz page of jsow-site.
+const base = import.meta.env.BASE_URL; // may or may not have a trailing slash
+const assetBase = base.replace(/\/$/, "");
+---
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CaféGap Schweiz</title>
+    <meta name="description" content="Wo gibt es in der Schweiz im Verhältnis zur Nachfrage viele oder wenige Cafés? Gemeindekarte auf Basis von OpenStreetMap." />
+    <link rel="icon" type="image/svg+xml" href={`${assetBase}/favicon.svg`} />
+    <link rel="stylesheet" href={`${assetBase}/cafegap/styles.css`} />
+    <script is:inline src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+  </head>
+  <body>
+    <header class="banner">
+      <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M6 12h17v7a7 7 0 0 1-7 7h-3a7 7 0 0 1-7-7z" fill="currentColor" />
+          <path d="M23 14h2.5a3.5 3.5 0 0 1 0 7H23" fill="none" stroke="currentColor" stroke-width="2.2" />
+          <path d="M11 4c-1.5 2 1.5 3 0 5M15.5 4c-1.5 2 1.5 3 0 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+        <div>
+          <h1>CaféGap Schweiz</h1>
+          <p>Wo gibt es im Verhältnis zur Nachfrage viele oder wenige Cafés?</p>
+        </div>
+      </div>
+      <span id="status-pill" class="pill" data-status="loading">Lade Daten …</span>
+    </header>
+
+    <div id="app">
+      <aside id="sidebar">
+        <section class="card">
+          <h2>Datenquelle</h2>
+          <div id="source"><p class="hint">Lade …</p></div>
+        </section>
+
+        <section class="card">
+          <h2 id="mode-title">Kartenmodus</h2>
+          <div id="modes" class="menu" role="radiogroup" aria-labelledby="mode-title">
+            <label><input type="radio" name="mode" value="base" checked /> Grundkarte</label>
+            <label><input type="radio" name="mode" value="gap" disabled /> Café-Lücke</label>
+            <label><input type="radio" name="mode" value="rate" disabled /> Cafés pro 10'000 Nachfrage</label>
+            <label><input type="radio" name="mode" value="count" disabled /> Anzahl Cafés</label>
+          </div>
+          <p id="mode-hint" class="hint"></p>
+        </section>
+
+        <section class="card">
+          <h2><label for="canton">Kanton</label></h2>
+          <select id="canton"><option value="">Ganze Schweiz</option></select>
+        </section>
+
+        <section class="card">
+          <h2>Gemeinde</h2>
+          <div id="details"><p class="hint">Gemeinde auf der Karte anklicken.</p></div>
+        </section>
+
+        <p class="planned">Geplant: Top 10 Café-Lücken · Scatterplot Nachfrage vs. Cafés · Cafés pro Kanton</p>
+      </aside>
+
+      <main id="map-panel">
+        <svg id="map" role="img" aria-label="Karte der Schweizer Gemeinden"></svg>
+        <div id="legend" hidden></div>
+        <p id="feedback">Lade Karte …</p>
+      </main>
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+
+    <script is:inline define:vars={{ assetBase }}>
+      window.__CAFEGAP_BASE__ = assetBase;
+    </script>
+    <script is:inline src={`${assetBase}/cafegap/data-source.js`}></script>
+    <script is:inline src={`${assetBase}/cafegap/app.js`}></script>
+  </body>
+</html>
